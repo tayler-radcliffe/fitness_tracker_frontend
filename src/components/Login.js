@@ -30,17 +30,18 @@ function getUserToken(token) {
     event.preventDefault();
     loginUser(username, password).then((data) => {
 
+
     console.log(data);
     const token = data.data.token;
     setLoginToken(token);
     localStorage.setItem('loginToken', JSON.stringify(loginToken));
 
-    console.log(token);
+    console.log(token); 
 
-    setUsername('');
-    setPassword('');
+  })};
 
-    })};
+  if(loginToken) {
+    return <Redirect to = '/home' /> }
 
 
     return (

@@ -24,6 +24,12 @@ const App = () => {
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [registerToken, setRegisterToken] = useState('');
+    const [postId, setPostId] = useState('');
+    const [postTitle, setPostTitle] = useState('');
+    const [postDescription, setPostDescription] = useState('');
+    const [postPrice, setPostPrice] = useState('');
+    const [postLocation, setPostLocation] = useState('');
+    const [willDeliver, setWillDeliver] = useState(false);
 
     return (
         <Router>

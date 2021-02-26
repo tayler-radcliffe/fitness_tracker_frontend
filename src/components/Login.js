@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { storeLoginToken } from '../api';
 
 const Login = ({username, setUsername, password, setPassword, loginToken, setLoginToken}) => {
 
@@ -23,9 +24,6 @@ const loginUser = async (username, password) => {
   return await resp.json();
 };
 
-function getUserToken(token) {
-    localStorage.getItem('token', JSON.stringify(token)); }
-
   const handleClick = (event) => {
     event.preventDefault();
     loginUser(username, password).then((data) => {
@@ -34,7 +32,7 @@ function getUserToken(token) {
     console.log(data);
     const token = data.data.token;
     setLoginToken(token);
-    localStorage.setItem('loginToken', JSON.stringify(loginToken));
+    storeLoginToken(token);
 
     console.log(token); 
 

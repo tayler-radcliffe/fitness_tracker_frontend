@@ -1,15 +1,16 @@
-// export function storeUserToken(token) {
-//     localStorage.setItem('token', JSON.stringify(token));
-//   }
+export function storeLoginToken(token) {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
   
-//   export function getCurrentToken() {
-//     const token = JSON.parse(localStorage.getItem('token'));
-//     return token;
-//   }
+  export function getCurrentToken() {
+    const token = JSON.parse(localStorage.getItem('token'));
+    return token;
+  }
   
-//   export function clearCurrentToken() {
-//     localStorage.removeItem('token');
-//   }
+  export function clearCurrentToken() {
+    localStorage.removeItem('token');
+  }
+
 
 export const fetchPosts = async (token = '') => {
   const response = await fetch('https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/posts', {
@@ -21,8 +22,6 @@ export const fetchPosts = async (token = '') => {
   console.log(data);
   return data;
 }
-
-
 
 
 export const sendMessage = ({
@@ -49,3 +48,5 @@ export const sendMessage = ({
       .catch((error) => console.error(error));
 
 }
+
+

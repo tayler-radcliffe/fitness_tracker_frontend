@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Post from './Post';
 
 
-const Posts = ({ loginToken }) => {
+const Posts = ({ loginToken, setPost }) => {
 
     const [posts, setPosts] = useState([]);
 
@@ -13,8 +13,10 @@ const Posts = ({ loginToken }) => {
         fetchPosts(loginToken)
         .then(({data}) => setPosts(data.posts));
     }, [])
+
     
     console.log(posts);
+
 
 
 //<a href="/home" />

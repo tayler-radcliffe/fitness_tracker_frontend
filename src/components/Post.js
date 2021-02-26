@@ -1,29 +1,48 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { getCurrentToken } from '../api';
 
 export default function Post (props) {
     const {
         post,
+        setPosts,
+       
         // handleEdit = () => {},
         // handleDelete = () => {}
     } = props
 
+
     console.log(post);
     const postId = post._id;
 
-    const history = useHistory()
 
-    function handleDelete() {
+    const history = useHistory();
 
-    }
 
-    function handleEdit() {
-        
+    function handleDelete(e) {
+        e.preventDefault();
+        fetch(`https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCurrentToken()}`
+        }
+        }).then(response => response.json())
+        .then(result => {
+            console.log(result);
+        })
+        .catch(console.error);
+        alert('Your post has been deleted!')
+
+        // const newPosts = post.filter(post => post._id !== postId);
+        // setPosts(newPosts);
     }
 
     if(!post) {
         return <div></div>
     }
+
+    if(post.active === true) {
     return (
         <div>
             <h2>{post.title}</h2>
@@ -33,10 +52,9 @@ export default function Post (props) {
             <h3><strong>Location:</strong> {post.location}</h3>
             <h3><strong>Will Deliver:</strong> {post.willDeliver}</h3>
 
-
         {post.isAuthor ? (
             <div>
-            <button onClick={handleEdit}>Edit</button>
+            <button onClick={() => history.push(`/editpost/${postId}`)}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
             </div>
         ) :                 
@@ -45,5 +63,8 @@ export default function Post (props) {
     </button>}
 
         </div>
-    )
+    )}
+
+    else return <div></div>
 }
+

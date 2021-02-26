@@ -51,7 +51,7 @@ function getUserToken(token) {
             <label>Username</label>
             <input type='text' value={username} placeholder='Username' min='8' max='20' required onChange={(e) => setUsername(e.target.value) }></input>
             <label>Password</label>
-            <input type='text' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
+            <input type='password' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
             <button type='submit'>Log In</button>
         </form>
         <a href='/register'>Don't have an account? Sign up</a>

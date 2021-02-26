@@ -32,6 +32,8 @@ export const createPost = async ({
         .catch(console.error);
   }
 
+  
+
 export const CreatePostForm = ({ 
   loginToken,
   postId,
@@ -56,7 +58,7 @@ export const CreatePostForm = ({
               e.preventDefault();
               console.log(postTitle, loginToken);
               localStorage.getItem(`${loginToken}`);
-              createPost({loginToken, postTitle, postDescription, postPrice, postLocation, willDeliver}); //import postId and/or willDeliver?
+              createPost({loginToken, postTitle, postDescription, postPrice, postLocation, willDeliver, postId}); //import postId and/or willDeliver?
               alert('Your post has been created!');
 
             }} >
@@ -80,5 +82,3 @@ export const CreatePostForm = ({
         </div>
     )
 }
-
-export default CreatePostForm;

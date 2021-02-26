@@ -16,7 +16,8 @@ import {
     Login,
     Profile,
     Posts,
-    CreatePostForm
+    CreatePostForm,
+    Message
 } from './components';
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
     const [postPrice, setPostPrice] = useState('');
     const [postLocation, setPostLocation] = useState('');
     const [willDeliver, setWillDeliver] = useState(false);
+
 
     return (
         <Router>
@@ -52,7 +54,7 @@ const App = () => {
                 </Route>
 
                 <Route exact path='/posts'>
-                  <Posts />
+                  <Posts loginToken={loginToken} />
                 </Route>
 
                 <Route exact path='/createpost'>
@@ -71,6 +73,11 @@ const App = () => {
                     <Register username={username} password={password} confirmedPassword={confirmedPassword} 
                     registerToken={registerToken} setUsername={setUsername} setPassword={setPassword} 
                     setConfirmedPassword={setConfirmedPassword} setRegisterToken={setRegisterToken}/>
+                </Route>
+
+                <Route exact path="/message/:postId" >
+                    <Message loginToken={loginToken} />
+                    {/*Figure out how to get query parameter OR when navigating to this page set state before*/ }
                 </Route>
              </Switch>
             </main>

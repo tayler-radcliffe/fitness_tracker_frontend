@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 export const Message =  ({ loginToken }) => {
     const [messageContent, setMessageContent] = useState('');
-    const { postId } = useParams()
+    const { postId } = useParams();
 
     return (
         <div>

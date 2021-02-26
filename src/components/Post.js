@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { getCurrentToken } from '../api';
 
 export default function Post (props) {
     const {
         post,
+        setPosts,
+       
         // handleEdit = () => {},
         // handleDelete = () => {}
     } = props
@@ -14,7 +15,8 @@ export default function Post (props) {
     console.log(post);
     const postId = post._id;
 
-    const history = useHistory()
+
+    const history = useHistory();
 
 
     function handleDelete(e) {
@@ -32,14 +34,9 @@ export default function Post (props) {
         .catch(console.error);
         alert('Your post has been deleted!')
 
+        // const newPosts = post.filter(post => post._id !== postId);
+        // setPosts(newPosts);
     }
-
-
-    function handleEdit() {
-
-    }
-
-
 
     if(!post) {
         return <div></div>
@@ -57,7 +54,7 @@ export default function Post (props) {
 
         {post.isAuthor ? (
             <div>
-            <button onClick={handleEdit}>Edit</button>
+            <button onClick={() => history.push(`/editpost/${postId}`)}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
             </div>
         ) :                 
@@ -67,6 +64,7 @@ export default function Post (props) {
 
         </div>
     )}
-    
+
     else return <div></div>
 }
+

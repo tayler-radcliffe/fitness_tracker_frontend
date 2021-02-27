@@ -36,6 +36,7 @@ const App = () => {
     const [postPrice, setPostPrice] = useState('');
     const [postLocation, setPostLocation] = useState('');
     const [willDeliver, setWillDeliver] = useState(false);
+    const [posts, setPosts] = useState([]);
 
 
     return (
@@ -48,7 +49,7 @@ const App = () => {
                 <Link to='/profile'>Profile</Link>
                 <Link to='/'>Login</Link>
                 <Link to='/register'>Register</Link>
-                <Link to='/'>Logout</Link>
+                <Link to='/' onClick={() => {clearCurrentToken()}}>Logout</Link>
             </nav>
             <main>
                 <Switch>
@@ -65,7 +66,7 @@ const App = () => {
                 </Route>
 
                 <Route exact path='/posts'>
-                  <Posts setPost={setPost} post={post} loginToken={loginToken} />
+                  <Posts posts={posts} setPosts={setPosts} setPost={setPost} post={post} loginToken={loginToken} />
                 </Route>
 
                 <Route exact path='/createpost'>

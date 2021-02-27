@@ -4,7 +4,6 @@ import { Redirect, Link } from 'react-router-dom';
 import { getCurrentToken } from '../api';
 
 export const createPost = async ({ 
-  loginToken,
   postTitle, 
   postDescription, 
   postPrice, 

@@ -44,9 +44,9 @@ const Register = ( { username, password, confirmedPassword, registerToken, setRe
             <label>Create a Username</label>
             <input type='text' value={username} placeholder='Username' min='8' max='20' required onChange={(e) => setUsername(e.target.value) }></input>
             <label>Create a Password</label>
-            <input type='text' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
+            <input type='password' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
             <label>Confirm Your Password</label>
-            <input type='text' value={confirmedPassword} placeholder='Confirm Password' min='8' max='20' required onChange={(e) => setConfirmedPassword(e.target.value) }></input>
+            <input type='password' value={confirmedPassword} placeholder='Confirm Password' min='8' max='20' required onChange={(e) => setConfirmedPassword(e.target.value) }></input>
             <button type='submit'>Register</button>
         </form>
         <a href='/'>Already have an account? Sign in</a>

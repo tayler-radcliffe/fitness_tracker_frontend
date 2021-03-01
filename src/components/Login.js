@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { getCurrentToken, storeLoginToken } from '../api';
+import '../components/login.css'
 
 const Login = ({username, setUsername, password, setPassword}) => {
   const history = useHistory()
@@ -40,14 +41,17 @@ const Login = ({username, setUsername, password, setPassword}) => {
     return <Redirect to = '/home' /> }
 
     return (
-    <div>
-        <form onSubmit={handleClick}>
+    <div className="login-container">
+        <form className="login-form" onSubmit={handleClick}>
         <h2>Login here:</h2>
-            <label>Username</label>
+            <label className="login-label">Username</label>
             <input type='text' value={username} placeholder='Username' min='8' max='20' required onChange={(e) => setUsername(e.target.value) }></input>
-            <label>Password</label>
+            <br></br>
+            <label className="login-label">Password</label>
             <input type='password' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
+            <div className="login-button">
             <input type='submit' />
+            </div>
         </form>
         <a href='/register'>Don't have an account? Sign up</a>
     </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useState } from 'react';
+import styled from 'styled-components';
+import '../src/style.css';
 
 import {
     BrowserRouter as Router,
@@ -38,35 +40,41 @@ const App = () => {
     const [willDeliver, setWillDeliver] = useState(false);
     const [posts, setPosts] = useState([]);
 
+/* nope, you just need to clear your token - you're still logged in as jumbo */
 
     return (
         <Router>
-        <div className="app">
 
-            <nav>
-                <Link to='/home'>Home</Link>
-                <Link to='/posts'>Posts</Link>
-                <Link to='/profile'>Profile</Link>
-                <Link to='/'>Login</Link>
-                <Link to='/register'>Register</Link>
-                <Link to='/' onClick={() => {clearCurrentToken()}}>Logout</Link>
-            </nav>
+        <div className="app">
+            <header className="fixedheader">
+                <h1>Stranger's Things</h1>
+                <nav>
+                    <Link to='/home'>Home</Link>
+                    <Link to='/posts'>Posts</Link>
+                    <Link to='/profile'>Profile</Link>
+                    <Link to='/login'>Login</Link>
+                    <Link to='/register'>Register</Link>
+                    <Link to='/' onClick={() => clearCurrentToken()}>Logout</Link>
+                </nav>
+            </header>
+            <div className="headerspacer"></div>
             <main>
-                <Switch>
+            <Switch>
 
                 <Route exact path='/home'>
-                <Title />
-                <h1>Welcome to your home page! Click the links above to navigate.</h1>
+                    <Title />
+                    <h1 className="homepage">Welcome to Stranger's Things!</h1>
+                    <h2 className="homepage">Click the links above to navigate.</h2>
                 </Route>
 
                 <Route exact path='/'>
-                <Title />
-                <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword}
-                loginToken={loginToken} setLoginToken={setLoginToken}/>
+                    <Title />
+                    <Login username={username} password={password} setUsername={setUsername} setPassword={setPassword}
+                    loginToken={loginToken} setLoginToken={setLoginToken}/>
                 </Route>
 
                 <Route exact path='/posts'>
-                  <Posts posts={posts} setPosts={setPosts} setPost={setPost} post={post} loginToken={loginToken} />
+                    <Posts posts={posts} setPosts={setPosts} setPost={setPost} post={post} loginToken={loginToken} />
                 </Route>
 
                 <Route exact path='/createpost'>
@@ -99,9 +107,8 @@ const App = () => {
                     setPostLocation={setPostLocation} willDeliver={willDeliver} setWillDeliver={setWillDeliver}/>
                 </Route>
 
-             </Switch>
+            </Switch>
             </main>
-
     </div>
     </Router>
     )

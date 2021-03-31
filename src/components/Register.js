@@ -1,41 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { storeLoginToken } from '../api';
 import '../components/register.css';
 
 
-const Register = ( { username, password, confirmedPassword, registerToken, setRegisterToken, setUsername, setPassword, setConfirmedPassword}) => {
+const Register = ( { username, password, confirmedPassword, setUsername, setPassword, setConfirmedPassword}) => {
 
+  const [token, setToken] = useState('');
 
     const registerUser = async (username, password) => {
-      const resp = await fetch(
-        "https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/users/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            user: {
-              username,
-              password
-            }
-          })
-        }
-      );
-        const data = await resp.json();
-        const registerToken = data.data.token
-        console.log(registerToken);
-        setRegisterToken(registerToken);
-        localStorage.setItem('registerToken', JSON.stringify(registerToken));
+      await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      }).then(response => response.json())
+        .then(result => {
+          console.log(result);
+          const token = result.token;
+          setToken(token);
+          storeLoginToken(token);
+        })
+        .catch(console.error);
  };
 
- if(registerToken) {
+ if(token) {
     return <Redirect to = '/' /> }
 
     const handleClick = (event) => {
+        if(password !== confirmedPassword) {
+          return alert('Passwords must match')
+        } else {
         event.preventDefault();
         registerUser(username, password).then((data) => {
-})};
+        })
+    }
+};
 
     
     return (
@@ -57,29 +61,11 @@ const Register = ( { username, password, confirmedPassword, registerToken, setRe
             <button type='submit'>Register</button>
             </div>
         </form>
-        <a href='/'>Already have an account? Sign in</a>
+        <a href='/login'>Already have an account? Sign in</a>
         </div>
     )
 }
 
- 
-
-    
-    // function performValidation() {
-    //     /* Need to only run on submit. Possibly clear userName and password if invalid. */
-    //     if (username.length < 8 || username.length > 20) {
-    //         alert('Invalid Username: Must be between 8 and 20 characters.');
-    //         return false;
-    //     } else if (password.length < 8 || password.length > 20){
-    //         alert('Invalid Password: Must be between 8 and 20 characters.')
-    //         return false;
-    //     } else if (password !== confirmedPassword){
-    //         alert('Passwords do not match. Please try again.')
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
 
 
 export default Register;

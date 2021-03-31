@@ -12,53 +12,15 @@ export function storeLoginToken(token) {
   }
 
 
-export const fetchPosts = async (token = '') => {
-  const response = await fetch('https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/posts', {
+export const fetchRoutines = async () => {
+  const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
     headers: {
-      Authorization: `Bearer ${token}`
-    }
+      'Content-Type': 'application/json',
+    },
   })
   const data = await response.json();
+
   return data;
-}
-
-
-export const userProfile = async (token = '') => {
-
-  const response = await fetch('https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/users/me', {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        })
-        const data = await response.json();
-        return data;
-  }
-
-
-
-export const sendMessage = ({
-  messageContent,
-  postId
-}) => {
-
-  return fetch(`https://strangers-things.herokuapp.com/api/2010-UNF-RM-WEB-PT/posts/${postId}/messages`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getCurrentToken()}`
-      },
-      body: JSON.stringify({
-        message: {
-          content: messageContent,
-        }
-      })
-    }).then(response => response.json())
-      .then(result => {
-        console.log(result);
-      })
-      .catch((error) => console.error(error));
-
 }
 
 

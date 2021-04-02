@@ -5,14 +5,14 @@
 }
 
 .register-form {
-    padding: 20px 20px 0px 20px;
+    padding: 20px 30px 55px 20px;
     text-align: center;
     background-color: white;
     width: 300px;
-    height: 300px;
+    height: 380px;
     position: absolute;
     left: 75%;
-    top: 300px;
+    top: 250px;
     border-radius: 25px;
 }
 
@@ -27,4 +27,8 @@
     padding-top: 10px;
     padding-bottom: 20px;
     text-align: center;
+}
+
+.register-link {
+    font-size: small;
 }

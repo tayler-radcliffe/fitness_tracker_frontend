@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { getCurrentToken, storeLoginToken } from '../api';
 import './login.css'
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import TextField from '@material-ui/core/TextField';
+
 
 const Login = ({username, setUsername, password, setPassword, setCurrentUser}) => {
 
@@ -34,6 +40,25 @@ const Login = ({username, setUsername, password, setPassword, setCurrentUser}) =
       loginUser(username, password);
   };
 
+  const useStyles = makeStyles((theme) => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    formControl: {
+      margin: theme.spacing(2),
+      minWidth: 120
+    },
+    textFields: {
+        width: '250px',
+        margin: theme.spacing(2),
+        marginTop: '5px'
+      },
+  }));
+
+  const classes = useStyles();
+
+
   if(token) {
     return <Redirect to = '/myroutines' /> }
 
@@ -41,17 +66,42 @@ const Login = ({username, setUsername, password, setPassword, setCurrentUser}) =
     <div className="login-container">
         <form className="login-form" onSubmit={handleClick}>
         <h2>Login here</h2>
-            <label className="login-label">Username</label>
-            <br></br>
-            <input type='text' value={username} placeholder='Username' min='8' max='20' required onChange={(e) => setUsername(e.target.value) }></input>
-            <br></br>
-            <label className="login-label">Password</label>
-            <br></br>
-            <input type='password' value={password} placeholder='Password' min='8' max='20' required onChange={(e) => setPassword(e.target.value) }></input>
+        <FormControl variant="outlined"  className={classes.formControl}>
+                
+                <TextField className={classes.textFields}
+                     type='text' 
+                     value={username}
+                     variant="outlined"
+                     InputLabelProps={{
+                      shrink: true,
+                    }} 
+                     label='Username' 
+                     min='8' max='20' required 
+                     onChange={(e) => setUsername(e.target.value) }
+                />
+        
+                <TextField className={classes.textFields}
+                    type='password' 
+                    value={password}
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }} 
+                    label='Password' 
+                    min='8' max='20' required 
+                    onChange={(e) => setPassword(e.target.value) }
+                />
             <div className="login-button">
-            <button type='submit'>Login</button>
-            </div>
-            <a href='/'>Don't have an account? Sign up</a>
+                <Button 
+                  size='large'
+                  type='submit'
+                  color='primary'
+                  variant="contained"
+                  onClick={() => handleClick}>Login</Button>
+            </div> 
+            
+          <a className='login-link' href='/'>Don't have an account? Sign Up</a>
+          </FormControl>
         </form>
     </div>
     )

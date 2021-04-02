@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { fetchActivites, getCurrentToken } from '../api';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import TextField from '@material-ui/core/TextField';
 
 
@@ -101,7 +99,10 @@ if(open === true) {
                         onChange={(e) => setDuration(e.target.value)}
                     />
              
-                <Button type='submit'>Add Activity</Button> 
+                <Button 
+                variant="contained"
+                color='primary'
+                type='submit'>Add Activity</Button> 
                 </FormControl>
             </form>
         )

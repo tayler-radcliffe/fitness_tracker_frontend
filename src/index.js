@@ -12,7 +12,8 @@ import {
     Route,
     Link,
     Switch,
-    useHistory
+    useHistory,
+    Redirect
 } from 'react-router-dom';
 
 import {
@@ -34,7 +35,7 @@ const App = () => {
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [currentUser, setCurrentUser] = useState('');
 
-    
+
 return (
     <Router>
 

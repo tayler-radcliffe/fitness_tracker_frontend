@@ -38,8 +38,6 @@ const App = () => {
 
 return (
     <Router>
-
-    <body>
         <div className="app">
             
             <div className="headerspacer"></div>
@@ -61,13 +59,13 @@ return (
                 </Route> */}
 
                <Route exact path='/'>
-                    <body className='introbg'>
+                    <div className='introbg'>
                         <h1 className='intro'>Welcome to Fitness Tracker</h1>
                         <nav className='intronav'>
                             <Link to='/publicroutines' ><FitnessCenterIcon className='textmiddle'/> </Link>
                             <Link to='/publicactivities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                         </nav>
-                    </body>
+                    </div>
                         <Register username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
                         confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword}/>
                 </Route>
@@ -156,8 +154,7 @@ return (
 
             </Switch>
             </main>
-    </div>
-    </body>
+        </div>
     </Router>
 )}
   

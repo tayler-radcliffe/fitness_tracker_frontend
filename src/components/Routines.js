@@ -31,6 +31,8 @@ const Routines = () => {
       container: {
         display: 'flex',
         flexWrap: 'wrap',
+        position: 'relative',
+        margin: '10px',
       },
       formControl: {
         margin: theme.spacing(2),
@@ -50,6 +52,7 @@ const Routines = () => {
       <div>
         <h1>Fitness Routines</h1>
         <Button 
+              className={classes.container}
               color="secondary"
               variant="contained"
               type="submit"

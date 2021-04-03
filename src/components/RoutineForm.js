@@ -36,7 +36,6 @@ const RoutineForm = ({open}) => {
 if(open === true) {
     return (
       <div className='routineform'>
-      <FormControl className={classes.container}>  
         <form onSubmit={e => {
           e.preventDefault();
           createRoutine({routineName, routineGoal, isPublic});
@@ -74,7 +73,7 @@ if(open === true) {
             variant="contained"
             type='submit'>Create Routine</Button>
           </form>
-        </FormControl>
+
       </div>
     )}
     else return (

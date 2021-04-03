@@ -26,6 +26,21 @@ export const fetchRoutines = async () => {
   return data;
 }
 
+export const fetchUserRoutines = async (user) => {
+  try{
+     const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
+       headers: {
+         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${getCurrentToken()}`
+         },
+     });
+     const data = await response.json();
+     return data;
+ } catch (error) {
+   throw error;
+ }
+}
+
 
 export const fetchActivites = async () => {
   const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
@@ -51,18 +66,6 @@ export const fetchUsername = async () => {
     return data;
 }
 
-
-export async function fetchUserRoutines() {
-    const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getCurrentToken()}`
-        },
-    });
-    const data = await response.json();
-
-    return data;
-}
 
 
 export const createRoutine = async ({routineName, routineGoal, isPublic}) => {

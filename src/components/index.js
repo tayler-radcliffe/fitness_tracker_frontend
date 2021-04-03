@@ -9,3 +9,5 @@ export { default as ActivityForm } from './ActivityForm';
 export { default as AddAnActivityForm } from './AddAnActivityForm';
 export { default as UpdateRoutineForm } from './UpdateRoutineForm';
 export { default as MyActivity } from './MyActivity';
+export { default as RoutineForm } from './RoutineForm';
+export { default as AddActivityForm } from './AddActivityForm';

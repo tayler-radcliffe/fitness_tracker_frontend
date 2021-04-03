@@ -3,6 +3,8 @@ import Activity from './Activity';
 import { getCurrentToken } from '../api';
 import AddAnActivityForm from './AddAnActivityForm';
 import UpdateRoutineForm from './UpdateRoutineForm';
+import Button from '@material-ui/core/Button';
+import './style.css'
 
 
 function Routine ({routine}) {
@@ -55,6 +57,7 @@ function Routine ({routine}) {
     }
     
 
+
 if(routine.isPublic === true && currentUser === routine.creatorName) {
     return (
         <div class="routine-card">
@@ -64,11 +67,27 @@ if(routine.isPublic === true && currentUser === routine.creatorName) {
             <h3><strong>Creator: </strong> {routine.creatorName}</h3>
             <h3><strong>Activities include:</strong></h3> 
             <h4>{routine.activities.map((activity, index) => <Activity routine={routine} key={index} activity={activity}/>)}</h4>
-            <button onClick={showForm}>{open ? 'Hide' : 'Add an Activity'}</button>
+            <Button 
+                className='button'
+                color='secondary'
+                onClick={showForm}
+                variant="contained">
+                    {open ? 'Hide' : 'Add an Activity'}</Button>
                 <AddAnActivityForm routine={routine} open={open}/>
-            <button onClick={showRoutine}>{routineOpen ? 'Hide' : 'Update Routine'}</button>
+            <Button 
+                className='button'
+                color='secondary'
+                variant="contained" 
+                onClick={showRoutine}>
+                    {routineOpen ? 'Hide' : 'Update Routine'}
+                </Button>
                 <UpdateRoutineForm routineOpen={routineOpen} routine={routine}/>
-            <button onClick={() => handleDelete}>Delete Entire Routine</button>
+            <Button 
+                className='button'
+                color='secondary'
+                onClick={showForm}
+                variant="contained" 
+                onClick={handleDelete}>Delete Entire Routine</Button>
             <h4>This routine is {routine.isPublic ? 'public.' : 'private.'}</h4>
         </div>
     </div>

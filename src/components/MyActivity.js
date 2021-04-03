@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsername, getCurrentToken } from '../api';
-import ActivityForm from './ActivityForm'
+import ActivityForm from './ActivityForm';
+import Button from '@material-ui/core/Button';
 
 export default function MyActivity (props) {
     const {
@@ -49,9 +50,17 @@ export default function MyActivity (props) {
             <h4>Description: {activity.description}</h4>
             <h4>Duration: {activity.duration}</h4>
             <h4>Count: {activity.count}</h4>
-            <button onClick={openForm}>{open ? 'Hide' : 'Update Activity'}</button>
+            <Button 
+                onClick={openForm}
+                className='editbutton'
+                color='secondary'
+                variant="contained" >{open ? 'Hide' : 'Update Activity'}</Button>
                 <ActivityForm id='activityform' activity={activity} open={open}/>
-            <button onClick={handleDelete}>Delete Activity</button>
+            <Button 
+                onClick={handleDelete}
+                className='editbutton'
+                color='secondary'
+                variant="contained">Delete Activity</Button>
         </div>
         )
 

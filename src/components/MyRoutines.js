@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { createRoutine } from './Routines'
 import { fetchUsername, getCurrentToken, fetchUserRoutines } from '../api';
 import MyRoutine from './MyRoutine';
-
+import Button from '@material-ui/core/Button';
+import RoutineForm from './RoutineForm';
 
 
 const MyRoutines = () => {
@@ -14,6 +15,7 @@ const MyRoutines = () => {
     const [routineGoal, setRoutineGoal] = useState('');
     const [isPublic, setIsPublic] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
+    const [open, setIsOpen] = useState(false);
 
     useEffect(() => {
       fetchUsername()
@@ -26,6 +28,13 @@ const MyRoutines = () => {
     })
 
    
+    const showForm = () => {
+        if (open === false){
+             setIsOpen(true)}
+        else {
+            setIsOpen(false)
+        }
+    }
 
   //  useEffect(() => {
   //   fetchUserRoutines(currentUser)
@@ -33,29 +42,22 @@ const MyRoutines = () => {
   // }, [])
   //unsure of how to get username inside url parameter???
 
-    if(getCurrentToken()) {
+  if(getCurrentToken()) {
     return (
-        <div className='myRoutines-card'>
-            <h1>My Routines</h1>
-            <form onSubmit={e => {
-              e.preventDefault();
-              createRoutine({routineName, routineGoal, isPublic});
-              alert('Your routine has been created!');
-                //need to redirect to /myroutines
-            }} >
-            <label>Name: </label>
-              <input type='text' required onChange={(e) => setRoutineName(e.target.value)} value={routineName} >
-                </input>
-            <label>Goal: </label>
-              <input type='text' required onChange={(e) => setRoutineGoal(e.target.value)} value={routineGoal} >
-                </input>
-            <label>Allow others to see? </label>
-              <input type='checkbox' value={isPublic} onClick={() => setIsPublic(true)} >
-                </input>
-              <button type='submit'>Create Routine</button>
-            </form>
+    <div>
+      <h1>My Routines</h1>
+           <Button 
+              color="secondary"
+              variant="contained"
+              type="submit"
+              onClick={showForm}>Create A New Routine</Button>
+                <RoutineForm routines={routines} open={open}/>
             {routines ? routines.map((routine, index) => 
-            <MyRoutine creator={creator} setCreator={setCreator} key={index} routine={routine} />) : <h1>Use the form above to start creating routines.</h1>}
+            <MyRoutine 
+              creator={creator} 
+              setCreator={setCreator} 
+              key={index} routine={routine} />) 
+              : <h1>Use the form above to start creating routines.</h1>}
          </div>
     )} else return (
           <div className='myRoutines'>
@@ -63,8 +65,6 @@ const MyRoutines = () => {
       </div>
     )
   }
-
-
 
 
 export default MyRoutines;

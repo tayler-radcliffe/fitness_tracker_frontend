@@ -1,6 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import { getCurrentToken } from '../api'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import './style.css';
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import { createActivity } from './Activities';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 const UpdateRoutineForm = ({routineOpen, routine}) => {
 
@@ -26,6 +34,24 @@ const UpdateRoutineForm = ({routineOpen, routine}) => {
             })
             .catch(console.error);
     }
+
+    const useStyles = makeStyles((theme) => ({
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+
+      },
+      textFields: {
+          width: '250px',
+          margin: theme.spacing(1),
+        },
+        textFields: {
+          width: '250px',
+          margin: theme.spacing(1)
+        },
+    }));
+  
+    const classes = useStyles();
     
 
 if(routineOpen === true) {
@@ -38,21 +64,37 @@ if(routineOpen === true) {
               //redirect/ refresh on click
 
             }} >
-              <input type='text' placeholder='Update Name' required onChange={(e) => setRoutineName(e.target.value)} value={routineName} >
-                </input>
-              <input type='text' placeholder='Update Goal' required onChange={(e) => setRoutineGoal(e.target.value)} value={routineGoal} >
-                </input>
-            <label>Allow others to see? </label>
-              <input type='checkbox' value={isPublic} onClick={() => {
+              <TextField className={classes.textFields}
+              onChange={(e) => setRoutineName(e.target.value)} 
+              value={routineName} 
+              size='small'
+              variant="outlined"
+              label='Name' 
+              />
+              <TextField className={classes.textFields}
+              onChange={(e) => setRoutineGoal(e.target.value)} 
+              label='Goal'
+              value={routineGoal} 
+              size='small'
+               variant="outlined" />
+          
+            <label className={classes.textFields}>Allow others to see? </label>
+              <Checkbox 
+              value={isPublic} 
+               type='checkbox'
+               color='primary' onClick={() => {
                   if(isPublic === false){
                       setIsPublic(true)}
                       else 
-                      setIsPublic(false)}} >
-                </input>
-              <button type='submit'>Update Routine</button>
+                      setIsPublic(false)}} />
+              <Button className={classes.textFields}
+              type='submit'
+              color='primary'
+              variant='contained'>Update Routine</Button>
             </form>
          </div>
-    )} else return <div></div>;
+    )} 
+    else return <div></div>;
 }
 
 

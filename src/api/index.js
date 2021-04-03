@@ -64,3 +64,24 @@ export async function fetchUserRoutines() {
     return data;
 }
 
+
+export const createRoutine = async ({routineName, routineGoal, isPublic}) => {
+  await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCurrentToken()}`
+        },
+      body: JSON.stringify({
+          name: routineName,
+          goal: routineGoal,
+          isPublic: isPublic
+    })
+  }).then(response => response.json())
+  .then(result => {
+      console.log(result);
+  })
+  .catch(console.error);
+}
+
+

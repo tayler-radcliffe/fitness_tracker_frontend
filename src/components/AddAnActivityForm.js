@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const AddAnActivityForm = ({open, setIsOpen, routine}) => {
+const AddAnActivityForm = ({open, routine}) => {
 
     const [activities, setActivities] = useState([]);
     const [activity, setActivity] = useState('');
@@ -43,17 +43,14 @@ const AddAnActivityForm = ({open, setIsOpen, routine}) => {
     })
 
     const useStyles = makeStyles((theme) => ({
-        container: {
-          display: 'flex',
-          flexWrap: 'wrap',
-        },
-        formControl: {
-          margin: theme.spacing(2),
-          minWidth: 120,
-        },
         textFields: {
-            width: '350px',
-            margin: theme.spacing(2)
+            width: '300px',
+            margin: theme.spacing(1)
+          },
+         selector: {
+            width: '300px',
+            margin: theme.spacing(1)
+
           },
       }));
 
@@ -67,13 +64,15 @@ if(open === true) {
                     addActivity({activity, count, duration});
                     alert('Your activity was added.');
                 }}>
-                <FormControl variant="outlined"  className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">Activity</InputLabel>
-                    <Select
-                        label="Choose an Activity<"
+                <FormControl variant="outlined" >
+                    <InputLabel id="demo-simple-select-outlined-label"
+                    className={classes.selector}>Activity</InputLabel>
+                    <Select 
+                        className={classes.selector}
                         id="demo-simple-select-outlined"
                         value={activity} 
                         label="activity"
+                        size='small'
                         onChange={event => {setActivity(event.target.value)}}>
                         {activities.map((activity, idx) => { 
                             return <MenuItem key={idx} value={activity.id}>{activity.name}</MenuItem>
@@ -82,27 +81,29 @@ if(open === true) {
                     </Select>
                     <TextField
                         className={classes.textFields}
-                        id="outlined-helperText"
                         label="Count"
                         defaultValue=""
                         variant="outlined"
+                        size='small'
                         value={count}
                         onChange={(e) => setCount(e.target.value)}
                     />
                     <TextField
                         className={classes.textFields}
-                        id="outlined-helperText"
                         label="Duration"
                         defaultValue=""
+                        size='small'
                         variant="outlined"
                         value={duration}
                         onChange={(e) => setDuration(e.target.value)}
                     />
              
                 <Button 
-                variant="contained"
-                color='primary'
-                type='submit'>Add Activity</Button> 
+                    className={classes.textFields}
+                    variant="contained"
+                    color='primary'
+                    type='submit'
+                    onClick={() => addActivity}>Add Activity</Button> 
                 </FormControl>
             </form>
         )

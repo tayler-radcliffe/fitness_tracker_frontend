@@ -14,19 +14,12 @@ const MyRoutines = () => {
     const [currentUser, setCurrentUser] = useState('');
     const [open, setIsOpen] = useState(false);
 
-    // useEffect(() => {
-    //   fetchUsername()
-    //   .then((data) => setCurrentUser(data.username))
-    //   fetchUserRoutines(currentUser)
-    //   .then((data) => setMyRoutines(data))
-    // })
-
-    fetchUserRoutines(currentUser)
+    useEffect(() => {
+      fetchUsername()
+      .then((data) => setCurrentUser(data.username))
+      fetchUserRoutines(currentUser)
       .then((data) => setMyRoutines(data))
-
-    console.log(currentUser)      
-     
-    console.log(myRoutines)
+    })
 
    
     const showForm = () => {

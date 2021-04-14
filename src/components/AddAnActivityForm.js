@@ -18,7 +18,7 @@ const AddAnActivityForm = ({open, routine}) => {
     const [count, setCount] = useState('');
 
     const addActivity = ({activity, count, duration}) => {
-        fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}/activities`, {
+        fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}/activities`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

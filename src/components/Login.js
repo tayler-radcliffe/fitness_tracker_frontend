@@ -14,7 +14,7 @@ const Login = ({username, setUsername, password, setPassword, setCurrentUser}) =
   const [token, setToken] = useState('');
 
   const loginUser = async (username, password) => {
-    await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/login', {
+    await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

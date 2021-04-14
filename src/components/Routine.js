@@ -29,7 +29,7 @@ function Routine ({routine}) {
         }
     }
 
-    fetch('http://fitnesstrac-kr.herokuapp.com/api/users/me', {
+    fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${getCurrentToken()}`
@@ -43,7 +43,7 @@ function Routine ({routine}) {
 
 
     const handleDelete = () => {
-        fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}`, {
+        fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

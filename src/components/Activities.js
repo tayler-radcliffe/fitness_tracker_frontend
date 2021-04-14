@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 export const createActivity = async ({activityName, activityDescription}) => {
-    await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+    await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

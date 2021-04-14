@@ -23,7 +23,7 @@ export default function MyActivity (props) {
     }
 
     const handleDelete = () => {
-        fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${activityId}`, {
+        fetch(`https://fitnesstrac-kr.herokuapp.com/api/routine_activities/${activityId}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

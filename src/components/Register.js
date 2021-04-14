@@ -15,7 +15,7 @@ const Register = ({ username, password, confirmedPassword, setUsername, setPassw
   const [token, setToken] = useState('');
 
   const registerUser = async (username, password) => {
-    await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/register', {
+    await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/register', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

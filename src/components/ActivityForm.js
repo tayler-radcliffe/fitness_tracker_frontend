@@ -18,7 +18,7 @@ const activityId = activity.routineActivityId;
 
 
 const updateActivity = async ({count, duration}) => {
-    await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${activityId}`, {
+    await fetch(`https://fitnesstrac-kr.herokuapp.com/api/routine_activities/${activityId}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',

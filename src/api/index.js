@@ -13,7 +13,7 @@ export function storeLoginToken(token) {
 
 
 export const fetchRoutines = async () => {
-  const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+  const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -25,7 +25,7 @@ export const fetchRoutines = async () => {
 
 export const fetchUserRoutines = async (user) => {
   try{
-     const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
+     const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
        headers: {
          'Content-Type': 'application/json',
          'Authorization': `Bearer ${getCurrentToken()}`
@@ -40,7 +40,7 @@ export const fetchUserRoutines = async (user) => {
 
 
 export const fetchActivities = async () => {
-  const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
+  const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -52,7 +52,7 @@ export const fetchActivities = async () => {
 
 
 export const fetchUsername = async () => {
-    const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/users/me', {
+    const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${getCurrentToken()}`
@@ -66,7 +66,7 @@ export const fetchUsername = async () => {
 
 
 export const createRoutine = async ({routineName, routineGoal, isPublic}) => {
-  await fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+  await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
       method: "POST",
       headers: {
           'Content-Type': 'application/json',

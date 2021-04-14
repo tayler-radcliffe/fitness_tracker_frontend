@@ -14,9 +14,9 @@ const Routines = () => {
     const [open, setIsOpen] = useState(false);
 
     useEffect(() => {
-        fetchRoutines()
-        .then((data) => setRoutines(data))
-        console.log(routines)
+      Promise.all([fetchRoutines()]).then(([data]) => {
+        setRoutines(data);
+      });
     }, [])
 
     const showForm = () => {
@@ -49,7 +49,7 @@ const Routines = () => {
 
   if(getCurrentToken()) {
     return (
-      <div>
+      <div className='routine-card'>
         <h1>Fitness Routines</h1>
         <Button 
               className={classes.container}

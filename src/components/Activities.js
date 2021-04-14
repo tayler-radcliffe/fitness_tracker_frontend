@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchActivites, getCurrentToken } from '../api';
+import { fetchActivities, getCurrentToken } from '../api';
 import Activity from './Activity';
 import Button from '@material-ui/core/Button';
 import AddActivityForm from './AddActivityForm';
@@ -32,9 +32,9 @@ const Activities = () => {
     const [open, setIsOpen] = useState(false);
 
     useEffect(() => {
-        fetchActivites()
-        .then((data) => setActivities(data))
-        console.log(activities)
+      Promise.all([fetchActivities()]).then(([data]) => {
+        setActivities(data);
+      });
     }, [])
 
     const showForm = () => {

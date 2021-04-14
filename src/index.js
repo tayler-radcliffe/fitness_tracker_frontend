@@ -12,12 +12,10 @@ import {
     Route,
     Link,
     Switch,
-    useHistory,
-    Redirect
+    useHistory
 } from 'react-router-dom';
 
 import {
-    Home,
     Register,
     Login,
     Routines,
@@ -29,6 +27,7 @@ import {
 const App = () => {
 
     const history = useHistory();
+    
 //use states
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -43,21 +42,7 @@ return (
             <div className="headerspacer"></div>
             <main>
             <Switch>
-                {/* <Route exact path='/home'>
-                    <header className="fixedheader">
-                    <nav>
-                        <Link to='/routines'><FitnessCenterIcon/></Link>
-                        <Link to='/myroutines'>My Routines</Link>
-                        <Link to='/activities'><DirectionsRunIcon/></Link>
-                        <Link to='/' onClick={() => {
-                            clearCurrentToken();
-                            //need to get it to push to home page after logout
-                            }}>Logout</Link>
-                    </nav>
-                    </header>
-                    <Home />
-                </Route> */}
-
+         
                <Route exact path='/'>
                     <div className='introbg'>
                         <h1 className='intro'>Welcome to Fitness Tracker</h1>

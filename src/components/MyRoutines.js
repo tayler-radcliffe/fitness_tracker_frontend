@@ -52,7 +52,7 @@ const MyRoutines = () => {
 
   if(getCurrentToken()) {
     return (
-    <div>
+    <div className='routine-card'>
       <h1>My Routines</h1>
            <Button className={classes.container}
               color="secondary"

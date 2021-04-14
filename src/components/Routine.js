@@ -68,14 +68,14 @@ if(routine.isPublic === true && currentUser === routine.creatorName) {
             <h3><strong>Activities include:</strong></h3> 
             <h4>{routine.activities.map((activity, index) => <Activity routine={routine} key={index} activity={activity}/>)}</h4>
             <Button 
-                className='button'
+                className='routine-button'
                 color='secondary'
                 onClick={showForm}
                 variant="contained">
                     {open ? 'Hide' : 'Add an Activity'}</Button>
                 <AddAnActivityForm routine={routine} open={open}/>
             <Button 
-                className='button'
+                className='routine-button'
                 color='secondary'
                 variant="contained" 
                 onClick={showRoutine}>
@@ -83,7 +83,7 @@ if(routine.isPublic === true && currentUser === routine.creatorName) {
                 </Button>
                 <UpdateRoutineForm routineOpen={routineOpen} routine={routine}/>
             <Button 
-                className='button'
+                className='routine-button'
                 color='secondary'
                 onClick={showForm}
                 variant="contained" 

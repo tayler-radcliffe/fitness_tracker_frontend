@@ -1,6 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { fetchRoutines, fetchUsername, getCurrentToken } from '../api';
-import ActivityForm from './ActivityForm'
+import React from "react";
 
 export default function Activity (props) {
     const {

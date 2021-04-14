@@ -51,12 +51,14 @@ export default function MyActivity (props) {
             <h4>Duration: {activity.duration}</h4>
             <h4>Count: {activity.count}</h4>
             <Button 
+                className='routine-button'
                 onClick={openForm}
                 className='editbutton'
                 color='secondary'
                 variant="contained" >{open ? 'Hide' : 'Update Activity'}</Button>
                 <ActivityForm id='activityform' activity={activity} open={open}/>
             <Button 
+                className='routine-button'
                 onClick={handleDelete}
                 className='editbutton'
                 color='secondary'

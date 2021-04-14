@@ -38,7 +38,7 @@ const AddAnActivityForm = ({open, routine}) => {
 
 
     useEffect(() => {
-        fetchActivites()
+        fetchActivities()
         .then((data) => setActivities(data))
     })
 

@@ -1,6 +1,3 @@
-import { ControlCameraOutlined } from "@material-ui/icons";
-import { useState } from "react";
-
 export function storeLoginToken(token) {
     localStorage.setItem('token', JSON.stringify(token));
   }
@@ -42,7 +39,7 @@ export const fetchUserRoutines = async (user) => {
 }
 
 
-export const fetchActivites = async () => {
+export const fetchActivities = async () => {
   const response = await fetch('http://fitnesstrac-kr.herokuapp.com/api/activities', {
     headers: {
       'Content-Type': 'application/json',

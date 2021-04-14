@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { getCurrentToken, storeLoginToken } from '../api';
 import './login.css'
 import FormControl from '@material-ui/core/FormControl';
@@ -100,7 +100,7 @@ const Login = ({username, setUsername, password, setPassword, setCurrentUser}) =
                   onClick={() => handleClick}>Login</Button>
             </div> 
             
-          <a className='login-link' href='/'>Don't have an account? Sign Up</a>
+          <Link to="/" className='login-link'>Don't have an account? Sign Up</Link>
           </FormControl>
         </form>
     </div>

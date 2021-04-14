@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
+
 export function storeLoginToken(token) {
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', token);
   }
   
   export function getCurrentToken() {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
     return token;
   }
   
@@ -23,11 +25,11 @@ export const fetchRoutines = async () => {
   return data;
 }
 
-export const fetchUserRoutines = async (user) => {
-  try{
-    const token = JSON.parse(localStorage.getItem('token'));
+export async function fetchUserRoutines(user) {
 
-     const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/${user}/routines`, {
        headers: {
          'Content-Type': 'application/json',
          'Authorization': `Bearer ${token}`
@@ -35,10 +37,7 @@ export const fetchUserRoutines = async (user) => {
      });
      const data = await response.json();
      return data;
- } catch (error) {
-   throw error;
  }
-}
 
 
 export const fetchActivities = async () => {
@@ -54,7 +53,7 @@ export const fetchActivities = async () => {
 
 
 export const fetchUsername = async () => {
-  const token = JSON.parse(localStorage.getItem('token'));
+  const token = localStorage.getItem('token');
 
     const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
       headers: {
@@ -71,8 +70,8 @@ export const fetchUsername = async () => {
 
 
 export const createRoutine = async ({routineName, routineGoal, isPublic}) => {
-  const token = JSON.parse(localStorage.getItem('token'));
-  
+  const token = localStorage.getItem('token');
+
   await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
       method: "POST",
       headers: {

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { storeLoginToken } from '../api';
+import { getCurrentToken, storeLoginToken } from '../api';
 import '../components/register.css';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import TextField from '@material-ui/core/TextField';
+import { useHistory } from "react-router-dom";
 
 
 
-const Register = ({ username, password, confirmedPassword, setUsername, setPassword, setConfirmedPassword }) => {
+const Register = ({ setCurrentUser, username, password, confirmedPassword, setUsername, setPassword, setConfirmedPassword }) => {
 
   const [token, setToken] = useState('');
 
@@ -27,26 +28,21 @@ const Register = ({ username, password, confirmedPassword, setUsername, setPassw
     }).then(response => response.json())
       .then(result => {
         console.log(result);
-        const token = result.token;
-        setToken(token);
-        storeLoginToken(token);
+        console.log('This is your login token', result.token)
+        setToken(result.token);
+        storeLoginToken(result.token);
+        setCurrentUser(result.user.username);
       })
       .catch(console.error);
   };
+ 
 
-  if (token) {
-    return <Redirect to='/' />
-  }
 
   const handleClick = (event) => {
-    if (password !== confirmedPassword) {
-      return alert('Passwords must match')
-    } else {
       event.preventDefault();
-      registerUser(username, password).then((data) => {
-      })
-    }
-  };
+      registerUser(username, password);
+    };
+    
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -66,7 +62,8 @@ const Register = ({ username, password, confirmedPassword, setUsername, setPassw
 
   const classes = useStyles();
 
-
+  if(token) {
+    return <Redirect to = '/myroutines' /> }
 
   return (
     <div className="register-container">

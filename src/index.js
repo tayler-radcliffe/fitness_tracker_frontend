@@ -59,7 +59,7 @@ return (
                             <Link to='/publicactivities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                         </nav>
                     </div>
-                        <Register username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
+                        <Register setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
                         confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword}/>
                 </Route>
 
@@ -95,7 +95,7 @@ return (
                         </nav>
                     </header>
                     <div class="spacer"></div>
-                    <MyRoutines />
+                    <MyRoutines setCurrentUser={setCurrentUser} currentUser={currentUser}/>
                 </Route>
 
                 <Route exact path='/routines'>

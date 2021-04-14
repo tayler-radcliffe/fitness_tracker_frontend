@@ -7,78 +7,75 @@ import RoutineForm from './RoutineForm';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const MyRoutines = () => {
-  
-    const [myRoutines, setMyRoutines] = useState([]);
-    const [creator, setCreator] = useState('');
-    const [currentUser, setCurrentUser] = useState('');
-    const [open, setIsOpen] = useState(false);
+const MyRoutines = ({currentUser, setCurrentUser}) => {
 
-    useEffect(() => {
-      Promise.all([fetchUsername()]).then(([data]) => {
-        setCurrentUser(data);
-      });
-      Promise.all([fetchUserRoutines()]).then(([data]) => {
-        setMyRoutines(data);
-      });
-    }, [])
+  const [myRoutines, setMyRoutines] = useState([]);
+  const [creator, setCreator] = useState('');
+  const [open, setIsOpen] = useState(false);
 
-   
-    const showForm = () => {
-        if (open === false){
-             setIsOpen(true)}
-        else {
-            setIsOpen(false)
-        }
+  useEffect(() => {
+    Promise.all([fetchUserRoutines(currentUser)]).then(([data]) => {
+      setMyRoutines(data);
+    });
+  }, [])
+
+  console.log(currentUser)
+
+
+  const showForm = () => {
+    if (open === false) {
+      setIsOpen(true)
     }
+    else {
+      setIsOpen(false)
+    }
+  }
 
-    const useStyles = makeStyles((theme) => ({
-      container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        position: 'relative',
-        margin: '10px',
-      },
-      formControl: {
-        margin: theme.spacing(2),
-        minWidth: 120,
-      },
-      textFields: {
-          width: '350px',
-          margin: theme.spacing(2)
-        },
-    }));
+  const useStyles = makeStyles((theme) => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      position: 'relative',
+      margin: '10px',
+    },
+    formControl: {
+      margin: theme.spacing(2),
+      minWidth: 120,
+    },
+    textFields: {
+      width: '350px',
+      margin: theme.spacing(2)
+    },
+  }));
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
-    console.log(token);
-    console.log(myRoutines)
+  console.log(token);
+  console.log(myRoutines);
 
-  if(getCurrentToken()) {
-    return (
+
+  return (
     <div className='routine-card'>
       <h1>My Routines</h1>
-           <Button className={classes.container}
-              color="secondary"
-              variant="contained"
-              type="submit"
-              onClick={showForm}>Create A New Routine</Button>
-                <RoutineForm setMyRoutines={setMyRoutines} open={open}/>
-            {myRoutines ? myRoutines.map((routine, index) => 
-            <MyRoutine 
-              creator={creator} 
-              setCreator={setCreator} 
-              key={index} routine={routine} />) 
-              : <h1>Use the form above to start creating routines.</h1>}
-         </div>
-    )} else return (
-          <div className='myRoutines'>
-          <h1>Please register or sign in to see your routines.</h1>
-      </div>
-    )
-  }
+      <Button 
+        className={classes.container}
+        color="secondary"
+        variant="contained"
+        type="submit"
+        onClick={showForm}>Create A New Routine</Button>
+      <RoutineForm currentUser={currentUser} setMyRoutines={setMyRoutines} open={open} />
+      {myRoutines ? myRoutines.map((routine, index) =>
+        <MyRoutine
+          creator={creator}
+          setCreator={setCreator}
+          key={index} 
+          routine={routine} />)
+        : <h1>Use the form above to start creating routines.</h1>}
+    </div>
+  )
+}
 
 
 export default MyRoutines;

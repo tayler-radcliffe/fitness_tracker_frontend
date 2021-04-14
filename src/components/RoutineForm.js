@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createRoutine, fetchUserRoutines } from '../api';
 
 
-const RoutineForm = ({open, setMyRoutines}) => {
+const RoutineForm = ({open, setMyRoutines, currentUser}) => {
 
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
@@ -39,7 +39,7 @@ if(open === true) {
           e.preventDefault();
           createRoutine({routineName, routineGoal, isPublic});
           alert('Your routine has been created!');
-          const myRoutines = await fetchUserRoutines();
+          const myRoutines = await fetchUserRoutines(currentUser);
           setMyRoutines(myRoutines);
     
         }} >

@@ -38,9 +38,10 @@ export default function MyActivity (props) {
     }
 
     useEffect(() => {
-        fetchUsername()
-        .then((data) => setCurrentUser(data.username))
-    })
+        Promise.all([fetchUsername()]).then(([data]) => {
+            setCurrentUser(data);
+          });
+    }, []);
 
     
     if(getCurrentToken()) {

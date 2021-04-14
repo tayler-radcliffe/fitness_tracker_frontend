@@ -6,6 +6,8 @@ export function storeLoginToken(token) {
     const token = JSON.parse(localStorage.getItem('token'));
     return token;
   }
+
+  const token = JSON.parse(localStorage.getItem('token'));
   
   export function clearCurrentToken() {
     localStorage.removeItem('token');
@@ -28,7 +30,7 @@ export const fetchUserRoutines = async (user) => {
      const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
        headers: {
          'Content-Type': 'application/json',
-         'Authorization': `Bearer ${getCurrentToken()}`
+         'Authorization': `Bearer ${token}`
          },
      });
      const data = await response.json();
@@ -55,11 +57,12 @@ export const fetchUsername = async () => {
     const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getCurrentToken()}`
+        'Authorization': `Bearer ${token}`
       },
     })
     const data = await response.json();
-
+    console.log(data);
+    
     return data;
 }
 
@@ -70,7 +73,7 @@ export const createRoutine = async ({routineName, routineGoal, isPublic}) => {
       method: "POST",
       headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getCurrentToken()}`
+          'Authorization': `Bearer ${token}`
         },
       body: JSON.stringify({
           name: routineName,

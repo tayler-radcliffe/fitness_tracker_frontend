@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Activity from './Activity';
-import { getCurrentToken } from '../api';
+import { fetchUsername, getCurrentToken } from '../api';
 import AddAnActivityForm from './AddAnActivityForm';
 import UpdateRoutineForm from './UpdateRoutineForm';
 import Button from '@material-ui/core/Button';
 import './style.css'
 
 
-function Routine ({routine}) {
+function Routine ({routine, currentUser, setCurrentUser}) {
 
-    const [currentUser, setCurrentUser] = useState('');
     const [open, setIsOpen] = useState(false);
     const [routineOpen, setIsRoutineOpen] = useState(false);
 
@@ -29,19 +28,8 @@ function Routine ({routine}) {
         }
     }
 
-    fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getCurrentToken()}`
-        },
-      }).then(response => response.json())
-        .then(result => {
-          setCurrentUser(result.username);
-        })
-        .catch(console.error);
-
-
-
+   
+   
     const handleDelete = () => {
         fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}`, {
             method: "DELETE",

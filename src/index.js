@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { clearCurrentToken, getCurrentToken } from './api'
+import { clearCurrentToken, getCurrentToken, fetchUsername } from './api'
 import '../src/style.css';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
@@ -27,12 +27,20 @@ import {
 const App = () => {
 
     const history = useHistory();
-    
+
 //use states
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+
+    useEffect(() => {
+        Promise.all([fetchUsername()]).then(([data]) => {
+            setCurrentUser(data.username);
+          });
+    }, []);
+
+    console.log(currentUser)
 
 
 return (
@@ -61,7 +69,7 @@ return (
                             <Link to='/publicroutines' ><FitnessCenterIcon className='textmiddle'/> </Link>
                             <Link to='/publicactivities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                         </nav>
-                    <Routines />
+                    <Routines setCurrentUser={setCurrentUser} currentUser={currentUser}/>
                 </Route>
                 
                 <Route exact path='/publicactivities'>

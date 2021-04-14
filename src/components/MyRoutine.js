@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MyActivity from './MyActivity';
 import { getCurrentToken } from '../api';
 import AddAnActivityForm from './AddAnActivityForm';

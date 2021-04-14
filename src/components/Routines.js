@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import RoutineForm from './RoutineForm';
 
 
-const Routines = () => {
+const Routines = ({currentUser, setCurrentUser}) => {
 
     const [routines, setRoutines] = useState([]);
     const [creator, setCreator] = useState('');
@@ -59,7 +59,7 @@ const Routines = () => {
               onClick={showForm}>Create A New Routine</Button>
                 <RoutineForm routines={routines} open={open}/>
           {routines ? routines.map((routine, index) => 
-          <Routine creator={creator} 
+          <Routine currentUser={currentUser} setCurrentUser={setCurrentUser} creator={creator} 
             setCreator={setCreator} 
             key={index} 
             routine={routine} /> ) : null }
@@ -69,7 +69,7 @@ const Routines = () => {
         <div className='publicRoutines'>
             <h1>Fitness Routines</h1>
             {routines ? routines.map((routine, index) => 
-            <Routine 
+            <Routine currentUser={currentUser} setCurrentUser={setCurrentUser}
               creator={creator} 
               setCreator={setCreator} 
               key={index} routine={routine} /> ) : null }

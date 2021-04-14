@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchActivites, getCurrentToken } from '../api';
+import { fetchActivities, getCurrentToken } from '../api';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,9 +38,10 @@ const AddAnActivityForm = ({open, routine}) => {
 
 
     useEffect(() => {
-        fetchActivities()
-        .then((data) => setActivities(data))
-    })
+        Promise.all([fetchActivities()]).then(([data]) => {
+            setActivities(data);
+          });
+    }, [])
 
     const useStyles = makeStyles((theme) => ({
         textFields: {

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { createRoutine } from '../api';
+import { createRoutine, fetchUserRoutines } from '../api';
 
 
-const RoutineForm = ({open}) => {
+const RoutineForm = ({open, setMyRoutines}) => {
 
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
@@ -35,11 +35,13 @@ const RoutineForm = ({open}) => {
 if(open === true) {
     return (
       <div className='routineform'>
-        <form onSubmit={e => {
+        <form onSubmit={async (e) => {
           e.preventDefault();
           createRoutine({routineName, routineGoal, isPublic});
           alert('Your routine has been created!');
-            //need to redirect to /myroutines
+          const myRoutines = await fetchUserRoutines();
+          setMyRoutines(myRoutines);
+    
         }} >
         <TextField 
           className={classes.textFields}

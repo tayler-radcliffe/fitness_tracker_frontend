@@ -15,11 +15,13 @@ const MyRoutines = () => {
     const [open, setIsOpen] = useState(false);
 
     useEffect(() => {
-      fetchUsername()
-      .then((data) => setCurrentUser(data.username))
-      fetchUserRoutines(currentUser)
-      .then((data) => setMyRoutines(data))
-    })
+      Promise.all([fetchUsername()]).then(([data]) => {
+        setCurrentUser(data);
+      });
+      Promise.all([fetchUserRoutines()]).then(([data]) => {
+        setMyRoutines(data);
+      });
+    }, [])
 
    
     const showForm = () => {
@@ -49,6 +51,10 @@ const MyRoutines = () => {
 
     const classes = useStyles();
 
+    const token = localStorage.getItem('token');
+
+    console.log(token);
+    console.log(myRoutines)
 
   if(getCurrentToken()) {
     return (
@@ -59,7 +65,7 @@ const MyRoutines = () => {
               variant="contained"
               type="submit"
               onClick={showForm}>Create A New Routine</Button>
-                <RoutineForm myRoutines={myRoutines} open={open}/>
+                <RoutineForm setMyRoutines={setMyRoutines} open={open}/>
             {myRoutines ? myRoutines.map((routine, index) => 
             <MyRoutine 
               creator={creator} 

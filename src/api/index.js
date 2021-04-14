@@ -6,8 +6,6 @@ export function storeLoginToken(token) {
     const token = JSON.parse(localStorage.getItem('token'));
     return token;
   }
-
-  const token = JSON.parse(localStorage.getItem('token'));
   
   export function clearCurrentToken() {
     localStorage.removeItem('token');
@@ -27,6 +25,8 @@ export const fetchRoutines = async () => {
 
 export const fetchUserRoutines = async (user) => {
   try{
+    const token = JSON.parse(localStorage.getItem('token'));
+
      const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/taylerann/routines`, {
        headers: {
          'Content-Type': 'application/json',
@@ -54,6 +54,8 @@ export const fetchActivities = async () => {
 
 
 export const fetchUsername = async () => {
+  const token = JSON.parse(localStorage.getItem('token'));
+
     const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
       headers: {
         'Content-Type': 'application/json',
@@ -62,13 +64,15 @@ export const fetchUsername = async () => {
     })
     const data = await response.json();
     console.log(data);
-    
+
     return data;
 }
 
 
 
 export const createRoutine = async ({routineName, routineGoal, isPublic}) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  
   await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
       method: "POST",
       headers: {

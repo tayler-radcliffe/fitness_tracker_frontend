@@ -7,7 +7,7 @@ import RoutineForm from './RoutineForm';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-const MyRoutines = ({currentUser, setCurrentUser}) => {
+const MyRoutines = ({ currentUser }) => {
 
   const [myRoutines, setMyRoutines] = useState([]);
   const [creator, setCreator] = useState('');
@@ -15,11 +15,9 @@ const MyRoutines = ({currentUser, setCurrentUser}) => {
 
   useEffect(() => {
     Promise.all([fetchUserRoutines(currentUser)]).then(([data]) => {
-      setMyRoutines(data);
-    });
+      setMyRoutines(data)})
   }, [])
 
-  console.log(currentUser)
 
 
   const showForm = () => {
@@ -50,27 +48,25 @@ const MyRoutines = ({currentUser, setCurrentUser}) => {
 
   const classes = useStyles();
 
-  const token = localStorage.getItem('token');
-
-  console.log(token);
-  console.log(myRoutines);
-
 
   return (
     <div className='routine-card'>
-      <h1>My Routines</h1>
-      <Button 
+      <h1>Welcome, {currentUser}!</h1>
+      <h2>Routines you've created:</h2>
+      <Button
         className={classes.container}
         color="secondary"
         variant="contained"
         type="submit"
-        onClick={showForm}>Create A New Routine</Button>
-      <RoutineForm currentUser={currentUser} setMyRoutines={setMyRoutines} open={open} />
+        onClick={showForm}>{open ? 'Hide' : 'Create A New Routine'}</Button>
+      <RoutineForm setIsOpen={setIsOpen} currentUser={currentUser} setMyRoutines={setMyRoutines} open={open} />
       {myRoutines ? myRoutines.map((routine, index) =>
         <MyRoutine
+          currentUser={currentUser}
+          setMyRoutines={setMyRoutines}
           creator={creator}
           setCreator={setCreator}
-          key={index} 
+          key={index}
           routine={routine} />)
         : <h1>Use the form above to start creating routines.</h1>}
     </div>

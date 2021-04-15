@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { getCurrentToken, storeLoginToken } from '../api';
+import { fetchUserRoutines, getCurrentToken, storeLoginToken } from '../api';
 import '../components/register.css';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,41 +8,57 @@ import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import TextField from '@material-ui/core/TextField';
 import { useHistory } from "react-router-dom";
+import { CropLandscapeOutlined } from '@material-ui/icons';
 
 
 
-const Register = ({ setCurrentUser, username, password, confirmedPassword, setUsername, setPassword, setConfirmedPassword }) => {
+const Register = ({ currentUser, setCurrentUser, username, password, confirmedPassword, setUsername, setPassword, setConfirmedPassword, setMyRoutines }) => {
 
   const [token, setToken] = useState('');
 
   const registerUser = async (username, password) => {
-    await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/register', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        password
-      })
-    }).then(response => response.json())
-      .then(result => {
-        console.log(result);
-        console.log('This is your login token', result.token)
-        setToken(result.token);
-        storeLoginToken(result.token);
-        setCurrentUser(result.user.username);
-      })
-      .catch(console.error);
+    if (password !== confirmedPassword) {
+      alert('Passwords must match')
+    } else {
+      await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/register', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      }).then(response => response.json())
+        .then(result => {
+          console.log(result);
+          if (result.error) {
+            alert(result.message);
+            setUsername('');
+            setPassword('');
+            setConfirmedPassword('');
+          } else {
+            console.log('This is your login token', result.token)
+            setToken(result.token);
+            storeLoginToken(result.token);
+            setUsername('');
+            setPassword('');
+            setConfirmedPassword('');
+          }
+        })
+        .catch(console.error);
+    }
   };
- 
 
 
-  const handleClick = (event) => {
-      event.preventDefault();
-      registerUser(username, password);
-    };
-    
+  const handleClick = async (event) => {
+    event.preventDefault();
+    registerUser(username, password);
+    setCurrentUser(username);
+    const newRoutines = await fetchUserRoutines(currentUser);
+    setMyRoutines(newRoutines);
+  };
+
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -62,8 +78,9 @@ const Register = ({ setCurrentUser, username, password, confirmedPassword, setUs
 
   const classes = useStyles();
 
-  if(token) {
-    return <Redirect to = '/myroutines' /> }
+  if (token) {
+    return <Redirect to='/myroutines' />
+  }
 
   return (
     <div className="register-container">
@@ -91,7 +108,8 @@ const Register = ({ setCurrentUser, username, password, confirmedPassword, setUs
               shrink: true,
             }}
             label='Password'
-            min='8' max='20' required
+            minLength="7"
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
 
@@ -103,7 +121,8 @@ const Register = ({ setCurrentUser, username, password, confirmedPassword, setUs
               shrink: true,
             }}
             label='Confirm Password'
-            min='8' max='20' required
+            minLength="7"
+            required
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
           <div className="register-button">

@@ -20,6 +20,11 @@ export const createActivity = async ({activityName, activityDescription}) => {
     }).then(response => response.json())
     .then(result => {
         console.log(result);
+        if(result.error) {
+          alert(result.error)
+        } else {
+          alert('Your activity has been created')
+        }
     })
     .catch(console.error);
 }
@@ -72,7 +77,7 @@ const Activities = () => {
             onClick={showForm}
             color='secondary'
             variant='contained'>Create A New Activity</Button>
-          <AddActivityForm open={open}/>
+          <AddActivityForm setIsOpen={setIsOpen} open={open} setActivities={setActivities}/>
             {activities ? activities.map((activity, index) => <Activity creator={creator} setCreator={setCreator} key={index} activity={activity} /> ) : null }
          </div>
     )} else {

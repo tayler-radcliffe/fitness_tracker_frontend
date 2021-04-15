@@ -4,10 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { createRoutine, fetchUserRoutines } from '../api';
+import { fetchUserRoutines } from '../api';
 
 
-const RoutineForm = ({open, setMyRoutines, currentUser}) => {
+const RoutineForm = ({setIsOpen, open, setMyRoutines, currentUser}) => {
 
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
@@ -32,16 +32,48 @@ const RoutineForm = ({open, setMyRoutines, currentUser}) => {
       const classes = useStyles();
 
 
+      
+const createRoutine = async ({ routineName, routineGoal, isPublic }) => {
+  const token = localStorage.getItem('token');
+
+  await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      name: routineName,
+      goal: routineGoal,
+      isPublic: isPublic
+    })
+  }).then(response => response.json())
+    .then(result => {
+      console.log(result);
+      if(result.error) {
+        alert('Sorry, that routine already exists. Please try again.')
+      } else {
+        alert('Your routine has been created!');
+      }
+    })
+    .catch(console.error);
+}
+
+
+
 if(open === true) {
     return (
       <div className='routineform'>
         <form onSubmit={async (e) => {
           e.preventDefault();
           createRoutine({routineName, routineGoal, isPublic});
-          alert('Your routine has been created!');
-          const myRoutines = await fetchUserRoutines(currentUser);
-          setMyRoutines(myRoutines);
-    
+          const data = await fetchUserRoutines(currentUser);
+          setMyRoutines(data);
+          setRoutineName('');
+          setRoutineGoal('');
+          setIsPublic(false);
+          setIsOpen(false);
+
         }} >
         <TextField 
           className={classes.textFields}

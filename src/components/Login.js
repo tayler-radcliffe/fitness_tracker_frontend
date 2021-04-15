@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { getCurrentToken, storeLoginToken } from '../api';
+import { fetchUserRoutines, getCurrentToken, storeLoginToken } from '../api';
 import './login.css'
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import TextField from '@material-ui/core/TextField';
 
 
-const Login = ({username, setUsername, password, setPassword, setCurrentUser}) => {
+const Login = ({username, setUsername, password, setPassword, setCurrentUser, setMyRoutines, currentUser}) => {
 
   const [token, setToken] = useState('');
 
@@ -26,18 +26,28 @@ const Login = ({username, setUsername, password, setPassword, setCurrentUser}) =
     }).then(response => response.json())
       .then(result => {
         console.log(result);
+        if(result.error) {
+          alert(result.message);
+          setUsername('');
+          setPassword(''); 
+        } else {
         const token = result.token;
         console.log('This is your login token', token)
         setToken(token);
         storeLoginToken(token);
-        setCurrentUser(result.user.username);
+        setUsername('');
+        setPassword(''); 
+        }
       })
       .catch(console.error);
   };
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
       event.preventDefault();
+      setCurrentUser(username);
       loginUser(username, password);
+      const newRoutines = await fetchUserRoutines(currentUser);
+      setMyRoutines(newRoutines);      
   };
 
   const useStyles = makeStyles((theme) => ({

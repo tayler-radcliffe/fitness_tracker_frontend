@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { getCurrentToken } from '../api'
+import { getCurrentToken, fetchUserRoutines } from '../api'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import './style.css';
@@ -10,7 +10,7 @@ import { createActivity } from './Activities';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-const UpdateRoutineForm = ({routineOpen, routine}) => {
+const UpdateRoutineForm = ({currentUser, setMyRoutines, setIsRoutineOpen, routineOpen, routine}) => {
 
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
@@ -57,11 +57,15 @@ const UpdateRoutineForm = ({routineOpen, routine}) => {
 if(routineOpen === true) {
     return (
         <div className='updateRoutineForm'>
-            <form onSubmit={e => {
+            <form onSubmit={async (e) => {
               e.preventDefault();
               updateRoutine({routineName, routineGoal});
               alert('Your routine has been updated!');
-              //redirect/ refresh on click
+              const data = await fetchUserRoutines(currentUser);
+              setMyRoutines(data);
+              setRoutineName('');
+              setRoutineGoal('');
+              setIsRoutineOpen(false);
 
             }} >
               <TextField className={classes.textFields}
@@ -85,8 +89,8 @@ if(routineOpen === true) {
                color='primary' onClick={() => {
                   if(isPublic === false){
                       setIsPublic(true)}
-                      else 
-                      setIsPublic(false)}} />
+                      else {
+                      setIsPublic(false)}}} />
               <Button className={classes.textFields}
               type='submit'
               color='primary'

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchActivities, getCurrentToken } from '../api';
+import { fetchActivities, fetchUserRoutines, getCurrentToken } from '../api';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const AddAnActivityForm = ({open, routine}) => {
+const AddAnActivityForm = ({setIsOpen, open, routine, setMyRoutines, currentUser}) => {
 
     const [activities, setActivities] = useState([]);
     const [activity, setActivity] = useState('');
@@ -32,6 +32,11 @@ const AddAnActivityForm = ({open, routine}) => {
     }).then(response => response.json())
       .then(result => {
         console.log(result);
+        if(result.error) {
+            alert('That activity already exists under this routine.')
+        } else {
+            alert('Your activity was added.')
+        }
       })
       .catch(console.error);
     }
@@ -60,10 +65,15 @@ const AddAnActivityForm = ({open, routine}) => {
 
 if(open === true) {
         return (
-                <form onSubmit={e => {
+                <form onSubmit={async (e) => {
                     e.preventDefault();
                     addActivity({activity, count, duration});
-                    alert('Your activity was added.');
+                    const newRoutines = await fetchUserRoutines(currentUser);
+                    setMyRoutines(newRoutines);
+                    setActivity('');
+                    setCount('');
+                    setDuration('');
+                    setIsOpen(false);
                 }}>
                 <FormControl variant="outlined" >
                     <InputLabel id="demo-simple-select-outlined-label"

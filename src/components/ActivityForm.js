@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { getCurrentToken } from '../api';
+import { fetchUserRoutines, getCurrentToken } from '../api';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import './style.css';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import { createRoutine } from '../api';
-import { createActivity } from './Activities'
 
-const ActivityForm = ({activity, open}) => {
+
+const ActivityForm = ({activity, open, setIsOpen, currentUser, setMyRoutines}) => {
 
     const [count, setCount] = useState('');
     const [duration, setDuration] = useState('');
@@ -31,9 +29,15 @@ const updateActivity = async ({count, duration}) => {
     }).then(response => response.json())
     .then(result => {
         console.log(result);
+        if(result.error) {
+          alert('Please use integer.')
+        } else {
+          alert('The activity has been updated.')
+        }
     })
     .catch(console.error);
     }
+
 
     const useStyles = makeStyles((theme) => ({
         container: {
@@ -58,11 +62,16 @@ if(open === true) {
     return (
         <div>
         <FormControl className={classes.container}>  
-          <form onSubmit={e => {
+          <form onSubmit={async (e) => {
             e.preventDefault();
             updateActivity({count, duration});
-            alert('Activity has been updated.');
-            //redirect/refresh page without refreshing
+            const newRoutines = await fetchUserRoutines(currentUser);
+            setMyRoutines(newRoutines);
+            setDuration('');
+            setCount('');
+            setIsOpen(false);
+                        
+
         }} >
         <TextField 
           label='Duration'

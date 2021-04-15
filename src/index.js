@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { clearCurrentToken, getCurrentToken, fetchUsername } from './api'
+import { clearCurrentToken, getCurrentToken, fetchUsername, fetchUserRoutines } from './api'
 import '../src/style.css';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
@@ -12,7 +12,8 @@ import {
     Route,
     Link,
     Switch,
-    useHistory
+    useHistory,
+    Redirect
 } from 'react-router-dom';
 
 import {
@@ -33,6 +34,7 @@ const App = () => {
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [currentUser, setCurrentUser] = useState('');
+    const [myRoutines, setMyRoutines] = useState([]);
 
     useEffect(() => {
         Promise.all([fetchUsername()]).then(([data]) => {
@@ -40,7 +42,10 @@ const App = () => {
           });
     }, []);
 
-    console.log(currentUser)
+    useEffect(() => {
+        Promise.all([fetchUserRoutines(currentUser)]).then(([data]) => {
+          setMyRoutines(data)})
+      }, [])
 
 
 return (
@@ -59,8 +64,8 @@ return (
                             <Link to='/publicactivities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                         </nav>
                     </div>
-                        <Register setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
-                        confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword}/>
+                        <Register currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
+                        confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword} setMyRoutines={setMyRoutines} />
                 </Route>
 
                 <Route exact path='/publicroutines'>
@@ -90,12 +95,12 @@ return (
                                 <Link to='/activities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                                 <Link to='/' onClick={() => {
                                 clearCurrentToken();
-                                //need to get it to push to home page after logout
+                                setCurrentUser('');
                                 }}>Logout</Link>
                         </nav>
                     </header>
                     <div class="spacer"></div>
-                    <MyRoutines setCurrentUser={setCurrentUser} currentUser={currentUser}/>
+                    <MyRoutines myRoutines={myRoutines} setMyRoutines={setMyRoutines} setCurrentUser={setCurrentUser} currentUser={currentUser}/>
                 </Route>
 
                 <Route exact path='/routines'>
@@ -107,7 +112,7 @@ return (
                                 <Link to='/activities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                                 <Link to='/' onClick={() => {
                                 clearCurrentToken();
-                                //need to get it to push to home page after logout
+                                setCurrentUser('');
                                 }}>Logout</Link>
                         </nav>
                     </header>
@@ -125,7 +130,7 @@ return (
                                 <Link to='/activities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                                 <Link to='/' onClick={() => {
                                 clearCurrentToken();
-                                //need to get it to push to home page after logout
+                                setCurrentUser('');
                                 }}>Logout</Link>
                         </nav>
                     </header>
@@ -140,8 +145,8 @@ return (
                             <Link to='/publicroutines' ><FitnessCenterIcon className='textmiddle'/> </Link>
                             <Link to='/publicactivities' ><DirectionsRunIcon className='textmiddle' /> </Link>
                         </nav>
-                        <Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
-                        confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword} setCurrentUser={setCurrentUser}/>
+                        <Login setMyRoutines={setMyRoutines} username={username} setUsername={setUsername} password={password} setPassword={setPassword} 
+                        confirmedPassword={confirmedPassword} setConfirmedPassword={setConfirmedPassword} setCurrentUser={setCurrentUser} currentUser={currentUser}/>
                     </div>
                 </Route>
 

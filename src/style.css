@@ -66,9 +66,26 @@ a:hover {
 }
 
 .authorizedheader { 
-    position: fixed; 
+    position: absolute;
     overflow: hidden;
     width: 100%; 
+    height: 80px;
+    background:Black;
+}
+
+.introheadertwo {
+    position: sticky; 
+    overflow: hidden;
+    width: 100%; 
+    height: 80px;
+    background:Black;
+}
+
+.intronavtwo {
+    position: sticky; 
+    overflow: hidden;
+    width: 10%;
+    margin-left: 720px;
     height: 80px;
     background:Black;
 }
@@ -102,7 +119,6 @@ main {
 }
 
 .intronav {
-    display: inline-block;
     position: absolute;
     left: 0%;
     margin: left;
@@ -110,17 +126,8 @@ main {
     
 }
 
-.intronavtwo {
-    display: inline-block;
-    position: absolute;
-    left: 10%;
-    margin: 10px 0 0 83%;
-    padding: 3px;
-    
-}
 
 .textmiddle {
     vertical-align:middle;
     padding-left: 10px;
 }
-

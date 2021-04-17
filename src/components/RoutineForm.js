@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import './style.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { fetchUserRoutines } from '../api';
+import swal from 'sweetalert';
 
 
 const RoutineForm = ({setIsOpen, open, setMyRoutines, currentUser}) => {
@@ -51,9 +52,9 @@ const createRoutine = async ({ routineName, routineGoal, isPublic }) => {
     .then(result => {
       console.log(result);
       if(result.error) {
-        alert('Sorry, that routine already exists. Please try again.')
+        swal('Oops', 'Sorry, that routine already exists. Please try again.', 'error')
       } else {
-        alert('Your routine has been created!');
+        swal('Success', 'Your routine has been created!', 'success');
       }
     })
     .catch(console.error);

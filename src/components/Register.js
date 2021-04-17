@@ -5,10 +5,10 @@ import '../components/register.css';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import TextField from '@material-ui/core/TextField';
 import { useHistory } from "react-router-dom";
-import { CropLandscapeOutlined } from '@material-ui/icons';
+import swal from 'sweetalert';
+
 
 
 
@@ -16,9 +16,11 @@ const Register = ({ currentUser, setCurrentUser, username, password, confirmedPa
 
   const [token, setToken] = useState('');
 
+  const history = useHistory();
+
   const registerUser = async (username, password) => {
     if (password !== confirmedPassword) {
-      alert('Passwords must match')
+      swal('Oops!', 'Passwords must match.', 'error')
     } else {
       await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/register', {
         method: "POST",
@@ -33,7 +35,10 @@ const Register = ({ currentUser, setCurrentUser, username, password, confirmedPa
         .then(result => {
           console.log(result);
           if (result.error) {
-            alert(result.message);
+            swal({
+              title: "Oops",
+              text: result.message,
+              icon: "error"});;
             setUsername('');
             setPassword('');
             setConfirmedPassword('');
@@ -44,6 +49,13 @@ const Register = ({ currentUser, setCurrentUser, username, password, confirmedPa
             setUsername('');
             setPassword('');
             setConfirmedPassword('');
+            swal({
+              title: "Welcome",
+              text: "Account created successfully!",
+              icon: "success",
+              button: false,
+              timer: 2000});
+            history.push('/myroutines')
           }
         })
         .catch(console.error);
@@ -78,9 +90,6 @@ const Register = ({ currentUser, setCurrentUser, username, password, confirmedPa
 
   const classes = useStyles();
 
-  if (token) {
-    return <Redirect to='/myroutines' />
-  }
 
   return (
     <div className="register-container">

@@ -48,8 +48,8 @@ const MyRoutines = ({ currentUser }) => {
 
   const classes = useStyles();
 
-
-  return (
+if(currentUser) {
+    return (
     <div className='routine-card'>
       <h1>Welcome, {currentUser}!</h1>
       <h2>Routines you've created:</h2>
@@ -71,6 +71,8 @@ const MyRoutines = ({ currentUser }) => {
         : <h1>Use the form above to start creating routines.</h1>}
     </div>
   )
+} else return <div className='text'>Sign in to see your routines or sign up to start creating one.</div>
+
 }
 
 

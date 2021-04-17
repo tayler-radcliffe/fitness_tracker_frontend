@@ -42,13 +42,11 @@ const App = () => {
         Promise.all([fetchUsername()]).then(([data]) => {
             setCurrentUser(data.username);
         });
+        Promise.all([fetchUserRoutines(currentUser)]).then(([data]) => {
+            setMyRoutines(data);
+        })
     }, []);
 
-    useEffect(() => {
-        Promise.all([fetchUserRoutines(currentUser)]).then(([data]) => {
-            setMyRoutines(data)
-        })
-    }, [])
 
 
     return (
@@ -81,7 +79,7 @@ const App = () => {
                                 </nav>
                             </header>
         
-                            <Routines setCurrentUser={setCurrentUser} currentUser={currentUser} />
+                            <Routines setMyRoutines={setMyRoutines} myRoutines={myRoutines} setCurrentUser={setCurrentUser} currentUser={currentUser} />
                         </Route>
 
                         <Route exact path='/publicactivities'>
@@ -128,7 +126,7 @@ const App = () => {
                                 </nav>
                             </header>
                             <div class="spacer"></div>
-                            <Routines />
+                            <Routines setMyRoutines={setMyRoutines} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
 
                         </Route>
 

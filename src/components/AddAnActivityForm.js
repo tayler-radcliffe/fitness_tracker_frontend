@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import swal from 'sweetalert';
 
 
 
@@ -33,9 +34,9 @@ const AddAnActivityForm = ({setIsOpen, open, routine, setMyRoutines, currentUser
       .then(result => {
         console.log(result);
         if(result.error) {
-            alert('That activity already exists under this routine.')
+            swal('Oops', 'That activity already exists under this routine.', 'error')
         } else {
-            alert('Your activity was added.')
+            swal('Success', 'Your activity was added.', 'success')
         }
       })
       .catch(console.error);

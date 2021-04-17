@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import './style.css';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
+import swal from 'sweetalert';
 
 
 const ActivityForm = ({activity, open, setIsOpen, currentUser, setMyRoutines}) => {
@@ -30,9 +31,9 @@ const updateActivity = async ({count, duration}) => {
     .then(result => {
         console.log(result);
         if(result.error) {
-          alert('Please use integer.')
+          swal('Oops!', 'Please use an integer.', 'error')
         } else {
-          alert('The activity has been updated.')
+          swal('Success', 'The activity has been updated.', 'success')
         }
     })
     .catch(console.error);

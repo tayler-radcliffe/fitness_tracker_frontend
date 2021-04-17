@@ -5,26 +5,29 @@ import Button from '@material-ui/core/Button';
 import AddActivityForm from './AddActivityForm';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-export const createActivity = async ({activityName, activityDescription}) => {
-    await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${getCurrentToken()}`
-          },
-        body: JSON.stringify({
-            name: activityName,
-            description: activityDescription
-      })
-    }).then(response => response.json())
+export const createActivity = async ({ activityName, activityDescription }) => {
+  await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getCurrentToken()}`
+    },
+    body: JSON.stringify({
+      name: activityName,
+      description: activityDescription
+    })
+  }).then(response => response.json())
     .then(result => {
-        console.log(result);
-        if(result.error) {
-          alert(result.error)
-        } else {
-          alert('Your activity has been created')
-        }
+      console.log(result);
+      if (result.error) {
+        swal({
+          title: 'Oops',
+          text: result.error,
+          icon: 'error'
+        })
+      } else {
+        swal('Success', 'Your activity has been created!', 'success')
+      }
     })
     .catch(console.error);
 }
@@ -32,22 +35,23 @@ export const createActivity = async ({activityName, activityDescription}) => {
 
 const Activities = () => {
 
-    const [activities, setActivities] = useState([]);
-    const [creator, setCreator] = useState('');
-    const [open, setIsOpen] = useState(false);
+  const [activities, setActivities] = useState([]);
+  const [creator, setCreator] = useState('');
+  const [open, setIsOpen] = useState(false);
 
-    useEffect(() => {
-      Promise.all([fetchActivities()]).then(([data]) => {
-        setActivities(data);
-      });
-    }, [])
+  useEffect(() => {
+    Promise.all([fetchActivities()]).then(([data]) => {
+      setActivities(data);
+    });
+  }, [])
 
-    const showForm = () => {
-      if (open === false){
-           setIsOpen(true)}
-      else {
-          setIsOpen(false)
-      }
+  const showForm = () => {
+    if (open === false) {
+      setIsOpen(true)
+    }
+    else {
+      setIsOpen(false)
+    }
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -62,33 +66,34 @@ const Activities = () => {
       minWidth: 120,
     },
     textFields: {
-        width: '350px',
-        margin: theme.spacing(2)
-      },
+      width: '350px',
+      margin: theme.spacing(2)
+    },
   }));
 
   const classes = useStyles();
 
-  if(getCurrentToken()) {
+  if (getCurrentToken()) {
     return (
       <div className='activities'>
-         <h1>Activities</h1>
-          <Button className={classes.container}
-            onClick={showForm}
-            color='secondary'
-            variant='contained'>Create A New Activity</Button>
-          <AddActivityForm setIsOpen={setIsOpen} open={open} setActivities={setActivities}/>
-            {activities ? activities.map((activity, index) => <Activity creator={creator} setCreator={setCreator} key={index} activity={activity} /> ) : null }
-         </div>
-    )} else {
-        return (
-            <div className='activities'>
-            <h1>Activities</h1>
-            {activities ? activities.map((activity, index) => <Activity creator={creator} setCreator={setCreator} key={index} activity={activity} /> ) : null }
-         </div>
+        <h1>Activities</h1>
+        <Button className={classes.container}
+          onClick={showForm}
+          color='secondary'
+          variant='contained'>Create A New Activity</Button>
+        <AddActivityForm setIsOpen={setIsOpen} open={open} setActivities={setActivities} />
+        {activities ? activities.map((activity, index) => <Activity creator={creator} setCreator={setCreator} key={index} activity={activity} />) : null}
+      </div>
+    )
+  } else {
+    return (
+      <div className='activities'>
+        <h1>Activities</h1>
+        {activities ? activities.map((activity, index) => <Activity creator={creator} setCreator={setCreator} key={index} activity={activity} />) : null}
+      </div>
 
-        )
-    }
+    )
+  }
 }
 
 

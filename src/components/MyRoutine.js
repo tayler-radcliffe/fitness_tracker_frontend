@@ -5,6 +5,7 @@ import AddAnActivityForm from './AddAnActivityForm';
 import UpdateRoutineForm from './UpdateRoutineForm';
 import Button from '@material-ui/core/Button';
 import './style.css';
+import swal from 'sweetalert';
 
 
 function MyRoutine({ currentUser, routine, setMyRoutines }) {
@@ -41,7 +42,7 @@ function MyRoutine({ currentUser, routine, setMyRoutines }) {
         }).then(response => response.json())
             .then(async(result) => {
                 console.log(result);
-                alert('Your routine has been deleted.')
+                swal('Success', 'Your routine has been deleted.', 'success')
                 const newRoutines = await fetchUserRoutines(currentUser);
                 setMyRoutines(newRoutines);
             })

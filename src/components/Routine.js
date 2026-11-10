@@ -33,7 +33,7 @@ function Routine({ routine, currentUser, setCurrentUser }) {
 
 
     const handleDelete = () => {
-        fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}`, {
+        fetch(`https://fitnesstracker-backend-ouqp.onrender.com/api/routines/${routine.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

@@ -37,7 +37,7 @@ const RoutineForm = ({setIsOpen, open, setMyRoutines, currentUser}) => {
 const createRoutine = async ({ routineName, routineGoal, isPublic }) => {
   const token = localStorage.getItem('token');
 
-  await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
+  await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/routines', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

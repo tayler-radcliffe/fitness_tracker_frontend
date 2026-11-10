@@ -15,7 +15,7 @@ export function clearCurrentToken() {
 
 
 export const fetchRoutines = async () => {
-  const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/routines', {
+  const response = await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/routines', {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -32,7 +32,7 @@ export const fetchUserRoutines = async (username) => {
   const token = localStorage.getItem('token');
 
   try {
-    const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/users/${username}/routines`, {
+    const response = await fetch(`https://fitnesstracker-backend-ouqp.onrender.com/api/users/${username}/routines`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -50,7 +50,7 @@ export const fetchUserRoutines = async (username) => {
 export const fetchActivities = async () => {
 
   try {
-    const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
+    const response = await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/activities', {
       headers: {
         "Content-Type": "application/json",
       },
@@ -68,7 +68,7 @@ export const fetchActivities = async () => {
 export const fetchUsername = async () => {
   const token = localStorage.getItem('token');
 
-  const response = await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/me', {
+  const response = await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/users/me', {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

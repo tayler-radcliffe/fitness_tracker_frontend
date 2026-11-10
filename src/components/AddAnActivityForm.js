@@ -19,7 +19,7 @@ const AddAnActivityForm = ({setIsOpen, open, routine, setMyRoutines, currentUser
     const [count, setCount] = useState('');
 
     const addActivity = ({activity, count, duration}) => {
-        fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}/activities`, {
+        fetch(`https://fitnesstracker-backend-ouqp.onrender.com/api/routines/${routine.id}/activities`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

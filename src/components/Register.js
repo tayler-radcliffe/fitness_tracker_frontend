@@ -22,7 +22,7 @@ const Register = ({ currentUser, setCurrentUser, username, password, confirmedPa
     if (password !== confirmedPassword) {
       swal('Oops!', 'Passwords must match.', 'error')
     } else {
-      await fetch('https://fitnesstrac-kr.herokuapp.com/api/users/register', {
+      await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/users/register', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

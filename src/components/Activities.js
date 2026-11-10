@@ -6,7 +6,7 @@ import AddActivityForm from './AddActivityForm';
 import { makeStyles } from '@material-ui/core/styles';
 
 export const createActivity = async ({ activityName, activityDescription }) => {
-  await fetch('https://fitnesstrac-kr.herokuapp.com/api/activities', {
+  await fetch('https://fitnesstracker-backend-ouqp.onrender.com/api/activities', {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

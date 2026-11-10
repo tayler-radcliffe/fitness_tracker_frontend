@@ -68,7 +68,7 @@ if(open === true) {
         return (
                 <form onSubmit={async (e) => {
                     e.preventDefault();
-                    addActivity({activity, count, duration});
+                    await addActivity({activity, count, duration});
                     const newRoutines = await fetchUserRoutines(currentUser);
                     setMyRoutines(newRoutines);
                     setActivity('');

@@ -67,7 +67,7 @@ if(open === true) {
       <div className='routineform'>
         <form onSubmit={async (e) => {
           e.preventDefault();
-          createRoutine({routineName, routineGoal, isPublic});
+          await createRoutine({routineName, routineGoal, isPublic});
           const data = await fetchUserRoutines(currentUser);
           setMyRoutines(data);
           setRoutineName('');

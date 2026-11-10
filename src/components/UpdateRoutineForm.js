@@ -17,7 +17,7 @@ const UpdateRoutineForm = ({ currentUser, setMyRoutines, setIsRoutineOpen, routi
   const [isPublic, setIsPublic] = useState(false);
 
   const updateRoutine = ({ routineName, routineGoal, isPublic }) => {
-    fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${routine.id}`, {
+    fetch(`https://fitnesstracker-backend-ouqp.onrender.com/api/routines/${routine.id}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const UpdateRoutineForm = ({ currentUser, setMyRoutines, setIsRoutineOpen, routi
       <div className='updateRoutineForm'>
         <form onSubmit={async (e) => {
           e.preventDefault();
-          updateRoutine({ routineName, routineGoal });
+          await updateRoutine({ routineName, routineGoal });
           const data = await fetchUserRoutines(currentUser);
           setMyRoutines(data);
           setRoutineName('');

@@ -36,7 +36,7 @@ const AddActivityForm = ({ setIsOpen, open, setActivities }) => {
       <div className='activity-form'>
         <form onSubmit={async (e) => {
           e.preventDefault();
-          createActivity({ activityName, activityDescription });
+          await createActivity({ activityName, activityDescription });
           const data = await fetchActivities();
           setActivities(data);
           setActivityName('');
